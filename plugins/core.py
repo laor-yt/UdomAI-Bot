@@ -1170,25 +1170,6 @@ async def handle_media(client, message):
         short_id = str(uuid.uuid4())[:8]
         url_cache[short_id] = target_msg
         
-        # If user attached a caption or prompt with the file, execute analysis directly!
-        if message.caption and len(message.caption.strip()) > 0:
-            caption_text = message.caption.strip()
-            processing_msg = await safe_reply_text(message, "⏱ [00:00] 🔍 Analyzing file content...")
-            async with RealtimeTimer(processing_msg, "🔍 Analyzing file content") as timer:
-                def pyrogram_dl_progress(current, total):
-                    percent = current * 100 / total
-                    timer.update_text(f"Downloading... {percent:.1f}%")
-                input_path = await target_msg.download(progress=pyrogram_dl_progress)
-                timer.update_text("Processing AI analysis...")
-                
-                is_ocr_to_text = any(kw in caption_text.lower() for kw in ["text", "ocr", "to text", "transcribe", "អានអក្សរ", "បកប្រែអក្សរ"])
-                mode = "to_text" if is_ocr_to_text else "explain"
-                
-                result = await asyncio.to_thread(process_media_analysis, input_path, mime_type, mode, caption_text)
-                cleanup_file(input_path)
-                await send_ai_reply_or_photo(message, processing_msg, result, prompt_text=caption_text)
-                return
-
         # No caption -> Present 2 clean primary action buttons: Convert & Ask AI
         keyboard = InlineKeyboardMarkup([
             [
