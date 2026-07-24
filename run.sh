@@ -7,7 +7,7 @@ echo "==================================="
 if ! command -v python3 &> /dev/null
 then
     echo "Python 3 could not be found."
-    echo "Please install Python 3.10 or newer and try again."
+    echo "Please install Python 3.11 or newer and try again."
     exit 1
 fi
 
@@ -23,6 +23,7 @@ source venv/bin/activate
 
 # Install requirements
 echo "Installing dependencies..."
+python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 
 # Check if .env file exists
