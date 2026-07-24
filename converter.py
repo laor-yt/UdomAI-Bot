@@ -1088,7 +1088,7 @@ def clip_video_into_parts(input_path, num_clips=3, progress_callback=None):
             stream = (
                 ffmpeg
                 .input(input_path, ss=start_time, t=clip_duration)
-                .output(out_file, vcodec='copy', acodec='copy')
+                .output(out_file, c='copy')
                 .overwrite_output()
             )
             ffmpeg.run(stream, cmd=imageio_ffmpeg.get_ffmpeg_exe(), capture_stdout=True, capture_stderr=True)
