@@ -742,23 +742,23 @@ def translate_and_dub_media(input_path, target_lang='km', src_lang='auto', is_vi
     if not final_speech_track:
         return "ERROR: Failed to generate dubbed speech track."
 
-    # Step 4: Try BGM isolation — skip if DSP produces near-silence (avoids polluting audio)
+    # Step 4: Extract background music & sound effects using Demucs v4 AI stem separation (eliminates human vocals)
     final_audio = final_speech_track
     try:
-        if progress_callback: progress_callback("🎵 Attempting background music isolation...")
-        bgm_path = extract_bgm_no_vocals_dsp(input_path)
+        if progress_callback: progress_callback("🎵 Isolating Background Music & Sound Effects with Demucs AI (stripping vocals)...")
+        bgm_path = extract_bgm_demucs(input_path)
         if bgm_path and os.path.exists(bgm_path) and check_audio_rms(bgm_path):
-            if progress_callback: progress_callback("🎧 Mixing voice with background music (35% BGM)...")
-            mixed = mix_tts_with_bgm(final_speech_track, bgm_path, bgm_volume=0.35)
+            if progress_callback: progress_callback("🎧 Mixing dubbed voice with isolated BGM & Sound Effects...")
+            mixed = mix_tts_with_bgm(final_speech_track, bgm_path, bgm_volume=0.45)
             if mixed and os.path.exists(mixed):
                 final_audio = mixed
             cleanup_file(bgm_path)
         else:
             if bgm_path:
                 cleanup_file(bgm_path)
-            if progress_callback: progress_callback("ℹ️ No background music detected — using pure voice dub.")
+            if progress_callback: progress_callback("ℹ️ BGM stem not available — using pure voice dub.")
     except Exception as e_bgm:
-        print(f"BGM isolation skipped: {e_bgm}")
+        print(f"BGM isolation error: {e_bgm}")
 
     # Step 5: Apply loudnorm to match original audio loudness (-16 LUFS broadcast standard)
     if progress_callback: progress_callback("🔊 Normalizing audio loudness to match original video...")
