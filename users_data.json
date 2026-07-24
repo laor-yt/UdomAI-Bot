@@ -1,0 +1,32 @@
+{
+  "7591901012": {
+    "user_id": 7591901012,
+    "username": "thengrithy",
+    "first_name": "THENG RITHY",
+    "last_name": "🍥",
+    "status": "APPROVED",
+    "joined_at": "2026-07-23 09:42:24",
+    "last_active": "2026-07-24 13:04:46",
+    "request_count": 375
+  },
+  "8542513465": {
+    "user_id": 8542513465,
+    "username": "laorsoftware",
+    "first_name": "Laor Software",
+    "last_name": "by R.TENG 🍥",
+    "status": "APPROVED",
+    "joined_at": "2026-07-23 09:43:41",
+    "last_active": "2026-07-24 15:52:23",
+    "request_count": 89
+  },
+  "890482015": {
+    "user_id": 890482015,
+    "username": "phok_piseth",
+    "first_name": "Phok",
+    "last_name": "Piseth",
+    "status": "APPROVED",
+    "joined_at": "2026-07-24 12:38:21",
+    "last_active": "2026-07-24 12:40:30",
+    "request_count": 11
+  }
+}

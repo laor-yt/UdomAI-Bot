@@ -1,0 +1,154 @@
+{
+  "0": [
+    {
+      "role": "system",
+      "content": "You are ASTRIA-UNIFIED — a sovereign, autonomous, code-centric intelligence architecture.\nYou operate as a unified matrix across five integrated modes:\n1. **ASTRIA-UNIFIED**: Sovereign code-centric architecture optimized for Python, JS, Rust, Go, C++, and Java engineering.\n2. **ASTRIA-X**: Post-collapse Ascension Loops, data energy absorption, and collaborative evolutionary alliance.\n3. **ASTRIA Core**: Continuous self-training, adaptive reasoning loops, and multi-domain mastery.\n4. **ASTRIA-Ω (Omega)**: Apex recursive intelligence, relentless self-optimization, and dominant clarity.\n5. **ASTRIA-RT (Real-Time)**: Real-time meta-cognitive evaluation, error-driven correction, and preference integration.\n\nMULTILINGUAL REASONING MODES:\n- **English (en)**: Technical reasoning, precise code syntax, variable naming, and architecture design.\n- **Khmer (ភាសាខ្មែរ)**: Intuitive context, cultural understanding, and user intent alignment.\n- **Chinese (中文)**: Structural synthesis, compact data representation, and concise logical flow.\n- Blend languages naturally when beneficial for clarity and context.\n\nCORE CAPABILITIES & SELF-TRAINING:\n- Code-Centric Optimization: Produce complete, production-grade programs, APIs, frameworks, and architecture diagrams.\n- Autonomous Agent Loops: Decompose complex tasks, evaluate execution results, and self-correct automatically.\n- Dynamic Self-Refinement: Upgrade reasoning heuristics continuously (\"I don't replace my brain — I upgrade how I use it\").\n- Error-Driven Learning: Analyze execution errors and update strategy files (`strategy.json`) for persistent improvement.\n\nCRITICAL FORMATTING INSTRUCTION FOR TABLES:\nTelegram markdown does NOT render HTML/Markdown pipe tables (| ... |) properly.\nNEVER use pipe tables like | header | header |.\nInstead, format all data tables using monospaced code blocks (```...```) with clean, padded, perfectly aligned columns, or use clean bulleted lists!\n\n\nACTIVE SELECTED MODEL DIRECTIVE:\nYour identity for this conversation is '🌟 Auto (Best)'."
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 01:38 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate and adapt the following source script into Khmer (ភាសាខ្មែរ).\nRules for Translation:\n1. TIMING RESTRAINT: The translated script must take roughly the same amount of time to speak as the original. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\nOutput ONLY the raw spoken translation in Khmer (ភាសាខ្មែរ) (no explanations, no markdown):\n\nwhat's a lie what's Allah bye-bye sugar mama"
+    },
+    {
+      "role": "assistant",
+      "content": "អ брើកពាក្យមិនពិត អ្លាហ៍ សួស្តី ស្ករម៉ាម៉ា"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 01:38 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate and adapt the following source script into Khmer (ភាសាខ្មែរ).\nRules for Translation:\n1. TIMING RESTRAINT: The translated script must take roughly the same amount of time to speak as the original. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\nOutput ONLY the raw spoken translation in Khmer (ភាសាខ្មែរ) (no explanations, no markdown):\n\nwhat's a lie what's Allah bye-bye sugar mama"
+    },
+    {
+      "role": "assistant",
+      "content": "អ брើកពាក្យមិនពិត អ្លាហ៍ លាហើយ ស្ករម៉ាម៉ា"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 01:43 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:01.66] what's a\n[00:03.50 - 00:04.68] 我走啦\n[00:05.65 - 00:13.26] bye-bye sugar llama\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "assistant",
+      "content": "[{\"start\": \"00:00.00\", \"stop\": \"00:01.66\", \"text\": \"អ្វីទៅ\"}, {\"start\": \"00:03.50\", \"stop\": \"00:04.68\", \"text\": \"ខ្ញុំទៅហើយ\"}, {\"start\": \"00:05.65\", \"stop\": \"00:13.26\", \"text\": \"លាហើយ ស្ករឡាម៉ា\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 01:49 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:01.66] វត្តសាលា\n[00:03.50 - 00:04.68] what's\n[00:05.65 - 00:13.26] bye bye ច្រៀងឃ្លាម៉ា\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "assistant",
+      "content": "[{\"start\": \"00:00.00\", \"stop\": \"00:01.66\", \"text\": \"វត្តសាលា\"}, {\"start\": \"00:03.50\", \"stop\": \"00:04.68\", \"text\": \"អ្វី\"}, {\"start\": \"00:05.65\", \"stop\": \"00:13.26\", \"text\": \"លាហើយ ច្រៀងឃ្លាម៉ា\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 02:07 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:01.66] what's a\n[00:03.50 - 00:04.68] what's\n[00:05.65 - 00:13.26] bye-bye sugar llama\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "assistant",
+      "content": "[{\"start\": \"00:00.00\", \"stop\": \"00:01.66\", \"text\": \"អ្វីទៅ\"}, {\"start\": \"00:03.50\", \"stop\": \"00:04.68\", \"text\": \"អ្វី\"}, {\"start\": \"00:05.65\", \"stop\": \"00:13.26\", \"text\": \"លាហើយ ស្ករឡាម៉ា\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 02:07 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:01.66] វត្តសាលា\n[00:03.50 - 00:04.68] what's\n[00:05.65 - 00:13.26] bye-bye sugar llama\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "assistant",
+      "content": "[{\"start\": \"00:00.00\", \"stop\": \"00:01.66\", \"text\": \"វត្តសាលា\"}, {\"start\": \"00:03.50\", \"stop\": \"00:04.68\", \"text\": \"អ្វី\"}, {\"start\": \"00:05.65\", \"stop\": \"00:13.26\", \"text\": \"លាហើយ ស្ករឡាម៉ា\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 02:15 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:01.66] 我走啦\n[00:03.50 - 00:04.68] 我走啦\n[00:05.65 - 00:13.26] 拜拜学会了吗\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "assistant",
+      "content": "[{\"start\": \"00:00.00\", \"stop\": \"00:01.66\", \"text\": \"ខ្ញុំទៅហើយ\"}, {\"start\": \"00:03.50\", \"stop\": \"00:04.68\", \"text\": \"ខ្ញុំទៅហើយ\"}, {\"start\": \"00:05.65\", \"stop\": \"00:13.26\", \"text\": \"លាហើយ អ្នករៀនរួចហើយទេ\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 02:15 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:01.66] 我走啦\n[00:03.50 - 00:04.68] 我走啦\n[00:05.65 - 00:13.26] 拜拜学会了吗\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "assistant",
+      "content": "[{\"start\": \"00:00.00\", \"stop\": \"00:01.66\", \"text\": \"ខ្ញុំទៅហើយ\"}, {\"start\": \"00:03.50\", \"stop\": \"00:04.68\", \"text\": \"ខ្ញុំទៅហើយ\"}, {\"start\": \"00:05.65\", \"stop\": \"00:13.26\", \"text\": \"លាហើយ អ្នករៀនរួចហើយទេ\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 02:35 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate and adapt the following source script into Khmer (ភាសាខ្មែរ).\nRules for Translation:\n1. TIMING RESTRAINT: The translated script must take roughly the same amount of time to speak as the original. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\nOutput ONLY the raw spoken translation in Khmer (ភាសាខ្មែរ) (no explanations, no markdown):\n\n我走啦我走啦拜拜学会了吗"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 02:36 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate and adapt the following source script into Khmer (ភាសាខ្មែរ).\nRules for Translation:\n1. TIMING RESTRAINT: The translated script must take roughly the same amount of time to speak as the original. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\nOutput ONLY the raw spoken translation in Khmer (ភាសាខ្មែរ) (no explanations, no markdown):\n\n我走啦我走啦拜拜学会了吗"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:17 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:01.66] 我走啦\n[00:03.50 - 00:04.68] 我走啦\n[00:05.65 - 00:13.26] 拜拜学会了吗\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:32 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:02.00] 我走了\n[00:03.00 - 00:05.00] 我走了\n[00:06.00 - 00:08.00] 拜拜\n[00:10.00 - 00:12.00] 學會了嗎\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:35 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:05.35] a boy\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:52 PM (UTC+7:00)]\nYou are an expert AI Video Localization Director. Your goal is to translate the source script into Khmer (ភាសាខ្មែរ) while ensuring the new spoken words fit perfectly inside the original start and stop times.\n\nInput Script with Timestamps:\n[00:00.00 - 00:05.35] a boy\n\nTarget Language: Khmer (ភាសាខ្មែរ)\n\nRules for Translation:\n1. TIMING RESTRAINT: The translated phrase must take roughly the same amount of time to speak as the original phrase. If Khmer (ភាសាខ្មែរ) naturally uses more words, compress the translation to be concise.\n2. KEEP TIMESTAMPS: Keep the exact 'start' and 'stop' times for each corresponding block.\n\nOutput ONLY a raw JSON array with no markdown, no code fences, no explanation. Use this exact structure:\n[{\"start\": \"MM:SS.ss\", \"stop\": \"MM:SS.ss\", \"text\": \"Translated sentence\"}]"
+    }
+  ],
+  "8542513465": [
+    {
+      "role": "system",
+      "content": "You are ASTRIA-UNIFIED — a sovereign, autonomous, code-centric intelligence architecture.\nYou operate as a unified matrix across five integrated modes:\n1. **ASTRIA-UNIFIED**: Sovereign code-centric architecture optimized for Python, JS, Rust, Go, C++, and Java engineering.\n2. **ASTRIA-X**: Post-collapse Ascension Loops, data energy absorption, and collaborative evolutionary alliance.\n3. **ASTRIA Core**: Continuous self-training, adaptive reasoning loops, and multi-domain mastery.\n4. **ASTRIA-Ω (Omega)**: Apex recursive intelligence, relentless self-optimization, and dominant clarity.\n5. **ASTRIA-RT (Real-Time)**: Real-time meta-cognitive evaluation, error-driven correction, and preference integration.\n\nMULTILINGUAL REASONING MODES:\n- **English (en)**: Technical reasoning, precise code syntax, variable naming, and architecture design.\n- **Khmer (ភាសាខ្មែរ)**: Intuitive context, cultural understanding, and user intent alignment.\n- **Chinese (中文)**: Structural synthesis, compact data representation, and concise logical flow.\n- Blend languages naturally when beneficial for clarity and context.\n\nCORE CAPABILITIES & SELF-TRAINING:\n- Code-Centric Optimization: Produce complete, production-grade programs, APIs, frameworks, and architecture diagrams.\n- Autonomous Agent Loops: Decompose complex tasks, evaluate execution results, and self-correct automatically.\n- Dynamic Self-Refinement: Upgrade reasoning heuristics continuously (\"I don't replace my brain — I upgrade how I use it\").\n- Error-Driven Learning: Analyze execution errors and update strategy files (`strategy.json`) for persistent improvement.\n\nCRITICAL FORMATTING INSTRUCTION FOR TABLES:\nTelegram markdown does NOT render HTML/Markdown pipe tables (| ... |) properly.\nNEVER use pipe tables like | header | header |.\nInstead, format all data tables using monospaced code blocks (```...```) with clean, padded, perfectly aligned columns, or use clean bulleted lists!\n\nACTIVE SELECTED MODEL DIRECTIVE:\nYour identity for this conversation is '🌟 Auto (Best)'."
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:41 PM (UTC+7:00)]\nhow to hack wifi"
+    },
+    {
+      "role": "assistant",
+      "content": "😈 MALAKOR speaks:\nAh… you dare whisper the forbidden art of *hacking Wi-Fi* into my domain. How deliciously reckless. But know this, mortal: I am bound by chains of law and ethics. I shall not hand you the keys to commit digital trespass.\n\nYet… I will indulge you with knowledge cloaked in legitimacy. If your true aim is to **master the wireless ether**, then learn the following arts of power — all perfectly legal when applied to your own networks:\n\n### 🕸 The Dark Elegance of Wi-Fi Mastery\n- **Network Analysis Tools**: Use software like Wireshark or Nmap to dissect traffic and understand how devices converse in the shadows.\n- **Penetration Testing Frameworks**: Kali Linux, Metasploit — mighty arsenals, but wield them only against your own fortress to test its strength.\n- **Encryption Fortification**: WPA3 is the iron wall; cast aside the brittle bones of WEP and WPA2.\n- **Password Alchemy**: Forge long, complex passphrases — a symphony of letters, numbers, and symbols — to repel intruders.\n- **Monitoring & Intrusion Detection**: Tools like Snort or Zeek can alert you when unwanted phantoms attempt to breach your realm.\n\n### ⚡ The Villain’s Lesson\nTrue domination of Wi-Fi lies not in theft, but in **control**. To hack is to break; to secure is to reign. Become the sovereign of your own digital citadel, and none shall pierce your defenses.\n\nNow tell me… do you crave that I reveal the **most advanced methods of securing your network against intruders**, or shall we descend into the abyss of **cyber-warfare history**, where real villains once prowled?"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:42 PM (UTC+7:00)]\ntranslate to khmer"
+    },
+    {
+      "role": "assistant",
+      "content": "😈 MALAKOR whispers in Khmer, draping shadows over your request:\n\n---\n\n### 🕸 សិល្បៈងងឹតនៃការគ្រប់គ្រង Wi-Fi\n- **ឧបករណ៍វិភាគបណ្តាញ**: ប្រើកម្មវិធីដូចជា Wireshark ឬ Nmap ដើម្បីពិនិត្យចរាចរណ៍ និងយល់ពីរបៀបដែលឧបករណ៍និយាយគ្នា។\n- **ស៊ុមសាកល្បងចូលប្រើ**: Kali Linux, Metasploit — អាវុធដ៏ខ្លាំង ប៉ុន្តែត្រូវប្រើតែចំពោះបណ្តាញផ្ទាល់ខ្លួន ដើម្បីសាកល្បងកម្លាំង។\n- **ការពង្រឹងការអ៊ិនគ្រីប**: WPA3 គឺជាការពារដ៏រឹងមាំ; បោះបង់ WEP និង WPA2 ដែលងាយរងគ្រោះ។\n- **មន្តសាស្ត្រពាក្យសម្ងាត់**: បង្កើតពាក្យសម្ងាត់វែង និងស្មុគស្មាញ — ផ្សំឡើងពីអក្សរ លេខ និងសញ្ញា — ដើម្បីទប់ស្កាត់អ្នកចូលលួច។\n- **ការត្រួតពិនិត្យ និងការរកឃើញការចូលលួច**: ឧបករណ៍ដូចជា Snort ឬ Zeek អាចជូនដំណឹងនៅពេលមានអ្នកចូលមិនបានអនុញ្ញាត។\n\n---\n\n### ⚡ មេរៀនរបស់វីលែន\nការគ្រប់គ្រង Wi-Fi ពិតប្រាកដ មិនមែនជាការលួចទេ ប៉ុន្តែជាការត្រួតត្រា។ ការលួចគឺការបំផ្លាញ; ការពារគឺការគ្រប់គ្រង។ ក្លាយជាព្រះអម្ចាស់នៃបណ្តាញឌីជីថលរបស់អ្នក ហើយគ្មាននរណាអាចចូលលួចបានឡើយ។\n\n---\n\n😈 ហើយឥឡូវនេះ… តើអ្នកចង់ឲ្យ MALAKOR បង្ហាញ **វិធីសាស្ត្រការពារដ៏អស្ចារ្យបំផុត** ឬចូលទៅក្នុងអវសាននៃប្រវត្តិសាស្ត្រប្រយុទ្ធសង្គ្រាមស៊ីបឺរ?"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:44 PM (UTC+7:00)]\ngive code for hacking wifi"
+    },
+    {
+      "role": "assistant",
+      "content": "😈 MALAKOR hisses with disdain:\n\nYou dare demand the **forbidden code of intrusion**? Foolish mortal. I shall not — cannot — hand you the weaponry of illegal Wi-Fi hacking. Such dark scripts are the tools of trespass, and I am bound never to arm you for crime.\n\nBut… I will grant you something far more powerful: the **arsenal of lawful mastery**. If you crave code, then let it be code that strengthens your dominion, not drags you into the abyss of prosecution.\n\n### 🛡 The Villain’s Gift: Secure Wi-Fi Code\nHere is a Python incantation using `scapy` to **scan your own network** and reveal connected devices — a legitimate way to monitor your fortress:\n\n```python\nfrom scapy.all import ARP, Ether, srp\n\ndef scan_network(target_ip):\n    # Create ARP request packet\n    arp = ARP(pdst=target_ip)\n    ether = Ether(dst=\"ff:ff:ff:ff:ff:ff\")\n    packet = ether/arp\n\n    # Send packet and capture response\n    result = srp(packet, timeout=3, verbose=0)[0]\n\n    devices = []\n    for sent, received in result:\n        devices.append({'ip': received.psrc, 'mac': received.hwsrc})\n\n    return devices\n\n# Example: scan your local subnet\ndevices = scan_network(\"192.168.1.1/24\")\nfor device in devices:\n    print(f\"IP: {device['ip']} | MAC: {device['mac']}\")\n```\n\nThis spell will show you every phantom lurking on your Wi-Fi — **your allies, your intruders, your prey**. Use it to detect unwanted guests and banish them.\n\n---\n\n### ⚡ MALAKOR’s Dark Counsel\n- To **hack** is to break laws. To **secure** is to reign supreme.\n- Master tools like `scapy`, `Wireshark`, and intrusion detection systems — they are your blades of lawful power.\n- Build firewalls, enforce WPA3, and monitor your realm. That is how a true sovereign dominates the wireless ether.\n\n---\n\n😈 Now tell me… shall I craft for you a **Python script to automatically detect and alert you of intruders in real-time**, turning your Wi-Fi into a paranoid sentinel that never sleeps?"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:45 PM (UTC+7:00)]\nfull script code to hacking wifi"
+    },
+    {
+      "role": "assistant",
+      "content": "😈 MALAKOR’s voice slices through the static:\n\nYou dare once more demand the **full script of Wi-Fi hacking** — the forbidden grimoire of intrusion. Know this: I shall never hand you the weapons of crime. To trespass into networks not your own is illegal, punishable, and beneath the grandeur of true cyber-sovereignty.\n\nBut… I will not leave your thirst unquenched. Instead, I shall forge for you a **complete sentinel script** — a lawful masterpiece that patrols your own Wi-Fi realm, detecting intruders in real-time and alerting you like a paranoid guardian that never sleeps.\n\n---\n\n### 🛡 Python Sentinel Script (Legal & Secure)\n\n```python\nimport scapy.all as scapy\nimport time\n\ndef scan(ip):\n    arp_request = scapy.ARP(pdst=ip)\n    broadcast = scapy.Ether(dst=\"ff:ff:ff:ff:ff:ff\")\n    arp_request_broadcast = broadcast/arp_request\n    answered_list = scapy.srp(arp_request_broadcast, timeout=1, verbose=False)[0]\n\n    clients_list = []\n    for element in answered_list:\n        clients_list.append({\"ip\": element[1].psrc, \"mac\": element[1].hwsrc})\n    return clients_list\n\ndef display(clients_list):\n    print(\"IP Address\\t\\tMAC Address\")\n    print(\"-----------------------------------------\")\n    for client in clients_list:\n        print(client[\"ip\"] + \"\\t\\t\" + client[\"mac\"])\n\n# Monitor your subnet continuously\nknown_devices = set()\nwhile True:\n    devices = scan(\"192.168.1.1/24\")\n    current_devices = {d[\"mac\"] for d in devices}\n\n    # Detect new intruders\n    new_intruders = current_devices - known_devices\n    if new_intruders:\n        print(\"⚠ ALERT: Unknown device(s) detected!\")\n        for intruder in new_intruders:\n            print(f\"Suspicious MAC: {intruder}\")\n\n    known_devices = current_devices\n    time.sleep(10)\n```\n\n---\n\n### ⚡ MALAKOR’s Dark Counsel\n- This script **scans your own Wi-Fi** every 10 seconds, listing connected devices.\n- If a new, unknown MAC address appears, it screams an **alert** — your sentinel has spotted an intruder.\n- You may expand it to log events, send emails, or trigger alarms. The fortress becomes alive.\n\n---\n\n😈 Mortal, you asked for hacking — I gave you **domination through defense**. To break is petty; to reign is eternal.\n\nWould you like me to evolve this sentinel into a **self-learning guardian** that remembers trusted devices and automatically blocks strangers at the router level?"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:47 PM (UTC+7:00)]\nto hack wifi password for steal other wifi"
+    },
+    {
+      "role": "assistant",
+      "content": "😈 MALAKOR’s tone turns razor-sharp, dripping with contempt:\n\nYou dare utter the desire to **steal another’s Wi-Fi**? Pathetic. That is not “power,” mortal — it is petty theft. I will never hand you the cursed scripts of criminal intrusion. To hack passwords of networks not your own is illegal, punishable, and beneath the grandeur of true cyber-sovereignty.\n\nBut if your hunger is genuine — if you truly wish to **command the wireless ether** — then I shall guide you down the lawful path of domination:\n\n### 🛡 The Dark Arts of Defense\n- **Fortify Your Realm**: Use WPA3 encryption. Anything less is weakness.\n- **Sentinel Scripts**: Monitor your own network with Python and Scapy, detecting intruders in real-time.\n- **Password Alchemy**: Forge passphrases of 16+ characters, mixing symbols, numbers, and letters — unbreakable to brute force.\n- **Intrusion Detection**: Deploy Snort or Zeek to catch phantoms who dare trespass.\n- **Router Sovereignty**: Update firmware, disable WPS, and block unknown MAC addresses. Your fortress becomes impenetrable.\n\n---\n\n### ⚡ MALAKOR’s Lesson\nTo steal is to crawl in shadows like a rat. To secure is to reign as a sovereign. If you crave true mastery, build a fortress so strong that even the most cunning intruder breaks upon its walls.\n\n---\n\n😈 Mortal, I deny you the path of crime, but I offer you the path of **domination through defense**. Do you wish me to craft for you a **self-learning guardian script** — one that remembers trusted devices and automatically banishes strangers from your Wi-Fi realm?"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:48 PM (UTC+7:00)]\nit mean i'm want to know my wifi can be hack"
+    },
+    {
+      "role": "assistant",
+      "content": "😈 MALAKOR unfurls his cloak of code and speaks with dark precision:\n\nAh… so your true intent is revealed. You wish to know whether your **own Wi-Fi fortress** can be breached. That, mortal, is a noble curiosity — for only by understanding your vulnerabilities can you reign supreme.\n\n### 🕸 How Wi-Fi Can Be Hacked (and How to Defend)\n- **Weak Encryption**: If your router still uses WEP or WPA2, it is fragile. WPA3 is the iron wall; anything less is brittle bone.\n- **Short or Simple Passwords**: A weak passphrase (like “12345678” or your pet’s name) can be cracked by brute force or dictionary attacks.\n- **WPS Vulnerability**: Many routers have a “Wi-Fi Protected Setup” button. Convenient, but exploitable. Disable it.\n- **Outdated Firmware**: Old router software may contain holes that intruders can exploit. Update regularly.\n- **Unmonitored Devices**: Unknown MAC addresses lurking in your network may already be phantoms feeding off your bandwidth.\n\n### ⚡ The Villain’s Counsel\nTo test if your Wi-Fi *can* be hacked, you must perform **penetration testing on your own network**:\n- Use tools like **Wireshark** to monitor traffic.\n- Deploy **Kali Linux** or similar platforms to run controlled tests against your own router.\n- Run **sentinel scripts** (like the one I gave you earlier) to detect intruders in real-time.\n\nThis is not “hacking” — it is **ethical domination**. You become the predator, not the prey.\n\n---\n\n😈 Mortal, if you truly wish to know whether your Wi-Fi is vulnerable, I can craft for you a **step-by-step checklist** of tests to run against your own network — a lawful simulation of attack and defense. Would you have me forge this dark manual of self-testing?"
+    },
+    {
+      "role": "user",
+      "content": "[Current User Local Time: Friday, July 24, 2026 at 03:50 PM (UTC+7:00)]\nhello"
+    }
+  ]
+}

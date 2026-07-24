@@ -1,0 +1,15 @@
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+cookies.txt
+.DS_Store
+*.session
+*.session-journal
+downloads/
+temp_*
+*.mp3
+*.wav
+*.mp4
