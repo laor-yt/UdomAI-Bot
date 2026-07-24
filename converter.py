@@ -554,174 +554,212 @@ def transcribe_with_whisper_timestamps(input_path, src_lang="auto"):
 
 def translate_and_dub_media(input_path, target_lang='km', src_lang='auto', is_video=True, progress_callback=None):
     """
-    Full AI Video Localization & Dubbing Pipeline:
-    1. Extracts speech using fast ASR transcription.
-    2. Translates speech to natural Target Language (e.g. Khmer).
-    3. Synthesizes high-quality Neural Speech (edge-tts / gTTS).
-    4. Speed-syncs speech duration to match video duration.
-    5. Isolates original background music & sound effects (stripping human vocals via DSP filters).
-    6. Mixes Neural Speech + original BGM/SFX in 44.1kHz Stereo AAC and merges with video.
+    Full AI Video Localization & Dubbing Pipeline (v3 - Mouth-Tracking Edition):
+    1. Uses Faster-Whisper to extract exact per-segment timestamps from original speech.
+    2. Translates each segment using Gemini/Google Translate.
+    3. Synthesizes Neural TTS (edge-tts) per segment.
+    4. Speed-compresses each TTS clip to FIT inside its original time slot (tts_dur / seg_dur as atempo).
+    5. Delays each clip to its original start time so speech lines up with mouth movements.
+    6. Mixes all delayed clips into a single full-length audio timeline.
+    7. Skips BGM mixing if DSP vocal removal produces near-silence (avoids polluting audio).
+    8. Applies loudnorm to match original audio level.
+    9. Merges dubbed audio track with original video stream, locked to original duration.
     """
     temp_dir = get_temp_dir()
-    
-    if progress_callback: progress_callback("⚡ Transcribing audio and extracting speech...")
-    
-    from plugins.document_parser import transcribe_audio_video
-    full_transcript = transcribe_audio_video(input_path, src_lang=src_lang)
-    if not full_transcript or "Error" in full_transcript or "Unsupported" in full_transcript or len(full_transcript.strip()) < 2:
-        return "ERROR: Could not extract speech from media to translate."
-        
+    ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+    orig_dur = get_video_duration(input_path)
+
+    if progress_callback: progress_callback("⚡ Transcribing speech with Faster-Whisper (timestamp alignment)...")
+
+    # Step 1: Get timestamped segments from Whisper
+    whisper_segs = transcribe_with_whisper_timestamps(input_path, src_lang=src_lang)
+
+    # Fallback: use silencedetect-based segments if Whisper fails
+    if not whisper_segs:
+        if progress_callback: progress_callback("⚡ Falling back to silence-detect for timestamps...")
+        raw_segments = detect_speech_segments(input_path)
+        if raw_segments:
+            from plugins.document_parser import transcribe_audio_video
+            whisper_segs = []
+            for (ss, se) in raw_segments:
+                dur = se - ss
+                if dur < 0.2: continue
+                seg_slice = os.path.join(temp_dir, f"{uuid.uuid4()}_slice.mp3")
+                try:
+                    subprocess.run([ffmpeg_exe, "-y", "-ss", str(ss), "-t", str(dur), "-i", input_path, "-acodec", "libmp3lame", seg_slice], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=10)
+                    txt = transcribe_audio_video(seg_slice, src_lang=src_lang)
+                    cleanup_file(seg_slice)
+                    if txt and len(txt.strip()) > 1 and "Error" not in txt:
+                        whisper_segs.append({"start": ss, "end": se, "text": txt.strip()})
+                except Exception:
+                    cleanup_file(seg_slice)
+
+    if not whisper_segs:
+        # Last resort: full transcript, single segment spanning entire video
+        from plugins.document_parser import transcribe_audio_video
+        full_transcript = transcribe_audio_video(input_path, src_lang=src_lang)
+        if not full_transcript or "Error" in full_transcript or len(full_transcript.strip()) < 2:
+            return "ERROR: Could not extract speech from media to translate."
+        whisper_segs = [{"start": 0.0, "end": orig_dur if orig_dur > 0 else 60.0, "text": full_transcript.strip()}]
+
     LANG_NAMES_MAP = {
-        'km': 'Khmer (ភាសាខ្មែរ)',
-        'en': 'English',
-        'zh': 'Chinese (中文)',
-        'vi': 'Vietnamese (Tiếng Việt)',
-        'th': 'Thai (ภาษาไทย)',
-        'ko': 'Korean (한국어)',
-        'ja': 'Japanese (日本語)',
-        'fr': 'French (Français)',
-        'es': 'Spanish (Español)',
-        'de': 'German (Deutsch)',
-        'ru': 'Russian (Русский)',
-        'ar': 'Arabic (العربية)',
+        'km': 'Khmer (ភាសាខ្មែរ)', 'en': 'English', 'zh': 'Chinese (中文)',
+        'vi': 'Vietnamese (Tiếng Việt)', 'th': 'Thai (ภាษាไទย)', 'ko': 'Korean (한국어)',
+        'ja': 'Japanese (日本語)', 'fr': 'French (Français)', 'es': 'Spanish (Español)',
+        'de': 'German (Deutsch)', 'ru': 'Russian (Русский)', 'ar': 'Arabic (العربية)',
         'hi': 'Hindi (हिन्दी)'
     }
     target_lang_name = LANG_NAMES_MAP.get(target_lang[:2], 'Khmer')
-    
-    if progress_callback: progress_callback("⚡ Detecting speech timestamps and alignment...")
-    
-    speech_segments = detect_speech_segments(input_path)
-    synced_segment_files = []
-    ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
-    
-    if speech_segments:
-        if progress_callback: progress_callback(f"🧠 Translating {len(speech_segments)} dialogue segments to {target_lang_name}...")
-        for idx, (seg_start, seg_end) in enumerate(speech_segments):
-            seg_dur = seg_end - seg_start
-            if seg_dur < 0.2: continue
-            
-            # Slice audio segment
-            seg_slice = os.path.join(temp_dir, f"{uuid.uuid4()}_seg_slice_{idx}.mp3")
-            try:
-                subprocess.run([ffmpeg_exe, "-y", "-ss", str(seg_start), "-t", str(seg_dur), "-i", input_path, "-acodec", "libmp3lame", seg_slice], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=8)
-                txt_seg = transcribe_audio_video(seg_slice, src_lang=src_lang)
-                cleanup_file(seg_slice)
-                
-                if not txt_seg or len(txt_seg.strip()) < 1 or "Error" in txt_seg: continue
-                
-                # Translate dialogue segment
-                txt_tr = translate_nllb_ct2(txt_seg, src_lang=src_lang, tgt_lang=target_lang)
-                txt_tr = re.sub(r'[*#_~`>\[\]\(\)]', ' ', txt_tr or txt_seg).strip()
-                if not txt_tr: continue
-                
-                # Generate Neural TTS for segment
-                raw_tts = generate_neural_tts(txt_tr, lang=target_lang[:2])
-                if not raw_tts or not os.path.exists(raw_tts): continue
-                
-                # Speed-sync & timestamp delay align
-                tts_dur = get_video_duration(raw_tts)
-                speed_ratio = (tts_dur / max(0.2, seg_dur)) if (tts_dur > 0 and seg_dur > 0) else 1.0
-                delay_ms = int(seg_start * 1000)
-                
-                synced_file = os.path.join(temp_dir, f"{uuid.uuid4()}_synced_seg_{idx}.mp3")
-                stream_in = ffmpeg.input(raw_tts)
-                for f_name, f_val in build_atempo_filter_chain(speed_ratio):
-                    stream_in = stream_in.filter(f_name, f_val)
-                stream_in = stream_in.filter('adelay', delays=f"{delay_ms}|{delay_ms}").filter('aresample', 44100).filter('aformat', channel_layouts='stereo')
-                ffmpeg.output(stream_in, synced_file, acodec='libmp3lame', ar='44100', ac=2).overwrite_output().run(cmd=ffmpeg_exe, capture_stdout=True, capture_stderr=True)
-                cleanup_file(raw_tts)
-                
-                if os.path.exists(synced_file) and os.path.getsize(synced_file) > 100:
-                    synced_segment_files.append(synced_file)
-            except Exception as e_seg:
-                print(f"Error dubbing segment {idx}: {e_seg}")
 
-    final_audio_track = None
-    if synced_segment_files:
-        combined_speech = os.path.join(temp_dir, f"{uuid.uuid4()}_combined_aligned_speech.mp3")
+    if progress_callback: progress_callback(f"🧠 Translating & dubbing {len(whisper_segs)} speech segments to {target_lang_name}...")
+
+    # Step 2: Per-segment translate → TTS → speed-compress → delay-pad
+    delayed_segment_files = []
+    for idx, seg in enumerate(whisper_segs):
+        seg_start = seg["start"]
+        seg_end = seg["end"]
+        seg_dur = seg_end - seg_start
+        src_text = seg.get("text", "").strip()
+
+        if seg_dur < 0.15 or not src_text:
+            continue
+
         try:
-            if len(synced_segment_files) == 1:
-                shutil.copy(synced_segment_files[0], combined_speech)
+            # Translate
+            if progress_callback and idx % 3 == 0:
+                progress_callback(f"🔄 Segment {idx+1}/{len(whisper_segs)}: translating & dubbing...")
+            clean_src = src_lang if src_lang != "auto" else "zh"
+            txt_tr = translate_nllb_ct2(src_text, src_lang=clean_src, tgt_lang=target_lang)
+            txt_tr = re.sub(r'[*#_~`>\[\]\(\)]', ' ', txt_tr or src_text).strip()
+            if not txt_tr:
+                continue
+
+            # Generate Neural TTS
+            raw_tts = generate_neural_tts(txt_tr, lang=target_lang[:2])
+            if not raw_tts or not os.path.exists(raw_tts):
+                continue
+
+            tts_dur = get_video_duration(raw_tts)
+            if tts_dur <= 0:
+                cleanup_file(raw_tts)
+                continue
+
+            # Speed factor: atempo = tts_dur / seg_dur
+            # atempo > 1 = speed UP (shorter output), atempo < 1 = slow DOWN (longer output)
+            # Goal: compress TTS to fit within seg_dur → atempo = tts_dur / seg_dur
+            speed_factor = tts_dur / max(0.15, seg_dur)
+            speed_factor = max(0.4, min(3.0, speed_factor))
+
+            delay_ms = int(seg_start * 1000)
+            delayed_file = os.path.join(temp_dir, f"{uuid.uuid4()}_delayed_seg_{idx}.mp3")
+
+            stream_in = ffmpeg.input(raw_tts).audio
+            for f_name, f_val in build_atempo_filter_chain(speed_factor):
+                stream_in = stream_in.filter(f_name, f_val)
+            # Pad silence before segment to align with original mouth timing
+            stream_in = stream_in.filter('adelay', delays=f"{delay_ms}|{delay_ms}")
+            stream_in = stream_in.filter('aresample', 44100).filter('aformat', channel_layouts='stereo')
+
+            ffmpeg.output(stream_in, delayed_file, acodec='libmp3lame', ar='44100', ac=2, **{'b:a': '192k'}).overwrite_output().run(
+                cmd=ffmpeg_exe, capture_stdout=True, capture_stderr=True
+            )
+            cleanup_file(raw_tts)
+
+            if os.path.exists(delayed_file) and os.path.getsize(delayed_file) > 100:
+                delayed_segment_files.append(delayed_file)
+
+        except Exception as e_seg:
+            print(f"Error dubbing segment {idx}: {e_seg}")
+
+    # Step 3: Mix all delayed segments into a single full-duration speech track
+    final_speech_track = None
+    if delayed_segment_files:
+        if progress_callback: progress_callback("🎛️ Mixing all dubbed segments into full audio timeline...")
+        combined_speech = os.path.join(temp_dir, f"{uuid.uuid4()}_dubbed_speech.mp3")
+        try:
+            if len(delayed_segment_files) == 1:
+                shutil.copy(delayed_segment_files[0], combined_speech)
             else:
-                inputs = [ffmpeg.input(f) for f in synced_segment_files]
-                ffmpeg.filter(inputs, 'amix', inputs=len(inputs), normalize=False).output(combined_speech, acodec='libmp3lame', ar='44100', ac=2).overwrite_output().run(cmd=ffmpeg_exe, capture_stdout=True, capture_stderr=True)
-            
-            if os.path.exists(combined_speech) and os.path.getsize(combined_speech) > 100:
-                final_audio_track = combined_speech
-        except Exception as e_mix_seg:
-            print(f"Error mixing aligned speech segments: {e_mix_seg}")
-            
-    if not final_audio_track:
-        if progress_callback: progress_callback(f"🧠 Translating full dialogue to {target_lang_name}...")
-        translated_text = translate_nllb_ct2(full_transcript, src_lang=src_lang, tgt_lang=target_lang)
-        translated_text = re.sub(r'[*#_~`>\[\]\(\)]', ' ', translated_text or full_transcript).strip()
-        
-        raw_tts = generate_neural_tts(translated_text, lang=target_lang[:2])
-        final_audio_track = raw_tts
-        synced_tts = os.path.join(temp_dir, f"{uuid.uuid4()}_synced_tts.mp3")
-        
-        orig_duration = get_video_duration(input_path)
-        tts_duration = get_video_duration(raw_tts) if raw_tts else 0
-        
-        if orig_duration > 0 and tts_duration > 0:
-            speed_ratio = (tts_duration / orig_duration)
-            try:
-                stream_in = ffmpeg.input(raw_tts)
-                for f_name, f_val in build_atempo_filter_chain(speed_ratio):
-                    stream_in = stream_in.filter(f_name, f_val)
-                stream_in = stream_in.filter('aresample', 44100).filter('aformat', channel_layouts='stereo')
-                ffmpeg.output(stream_in, synced_tts, acodec='libmp3lame', ar='44100', ac=2, **{'b:a': '192k'}).overwrite_output().run(cmd=ffmpeg_exe, capture_stdout=True, capture_stderr=True)
-                if os.path.exists(synced_tts) and os.path.getsize(synced_tts) > 100:
-                    final_audio_track = synced_tts
-            except Exception as e_sync:
-                print(f"Speech speed sync error: {e_sync}")
+                inputs = [ffmpeg.input(f).audio for f in delayed_segment_files]
+                ffmpeg.filter(inputs, 'amix', inputs=len(inputs), normalize=False, duration='longest').output(
+                    combined_speech, acodec='libmp3lame', ar='44100', ac=2, **{'b:a': '192k'}
+                ).overwrite_output().run(cmd=ffmpeg_exe, capture_stdout=True, capture_stderr=True)
 
-    # Isolate original BGM & Sound effects (stripping human speech vocals)
-    if progress_callback: progress_callback("🎵 Isolating Background Music & Sound Effects (eliminating vocals)...")
-    bgm_path = extract_bgm_no_vocals_dsp(input_path)
-    
-    final_audio_with_bgm = final_audio_track
-    if bgm_path and os.path.exists(bgm_path) and check_audio_rms(bgm_path):
-        if progress_callback: progress_callback("🎧 Mixing Neural Voice with original BGM & Sound Effects (44.1kHz Stereo)...")
-        mixed = mix_tts_with_bgm(final_audio_track, bgm_path, bgm_volume=0.40)
-        if mixed and os.path.exists(mixed):
-            final_audio_with_bgm = mixed
+                final_speech_track = combined_speech
+        except Exception as e_mix:
+            print(f"Error mixing delayed segments: {e_mix}")
+            if delayed_segment_files:
+                final_speech_track = delayed_segment_files[0]
 
-    if progress_callback: progress_callback("🎬 Merging mouth-synced audio with video stream...")
+    if not final_speech_track:
+        return "ERROR: Failed to generate dubbed speech track."
+
+    # Step 4: Try BGM isolation — skip if DSP produces near-silence (avoids polluting audio)
+    final_audio = final_speech_track
+    try:
+        if progress_callback: progress_callback("🎵 Attempting background music isolation...")
+        bgm_path = extract_bgm_no_vocals_dsp(input_path)
+        if bgm_path and os.path.exists(bgm_path) and check_audio_rms(bgm_path):
+            if progress_callback: progress_callback("🎧 Mixing voice with background music (35% BGM)...")
+            mixed = mix_tts_with_bgm(final_speech_track, bgm_path, bgm_volume=0.35)
+            if mixed and os.path.exists(mixed):
+                final_audio = mixed
+            cleanup_file(bgm_path)
+        else:
+            if bgm_path:
+                cleanup_file(bgm_path)
+            if progress_callback: progress_callback("ℹ️ No background music detected — using pure voice dub.")
+    except Exception as e_bgm:
+        print(f"BGM isolation skipped: {e_bgm}")
+
+    # Step 5: Apply loudnorm to match original audio loudness (-16 LUFS broadcast standard)
+    if progress_callback: progress_callback("🔊 Normalizing audio loudness to match original video...")
+    loudnorm_path = os.path.join(temp_dir, f"{uuid.uuid4()}_loudnorm.mp3")
+    try:
+        subprocess.run(
+            [ffmpeg_exe, "-y", "-i", final_audio,
+             "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
+             "-acodec", "libmp3lame", "-ar", "44100", "-ac", "2", "-b:a", "192k",
+             loudnorm_path],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=30
+        )
+        if os.path.exists(loudnorm_path) and os.path.getsize(loudnorm_path) > 100:
+            final_audio = loudnorm_path
+    except Exception as e_ln:
+        print(f"Loudnorm failed: {e_ln}")
+
+    # Step 6: Merge dubbed audio with original video (locked to original duration)
     output_ext = "mp4" if is_video else "mp3"
     output_path = os.path.join(temp_dir, f"{uuid.uuid4()}_dubbed.{output_ext}")
-    
+
     if is_video:
+        if progress_callback: progress_callback("🎬 Merging dubbed audio with original video...")
         try:
-            orig_dur = get_video_duration(input_path)
-            tts_dur = get_video_duration(final_audio_with_bgm)
-            target_dur = max(orig_dur, tts_dur) if (orig_dur > 0 or tts_dur > 0) else None
-            
-            video_input = ffmpeg.input(input_path, stream_loop=-1).video if (orig_dur > 0 and tts_dur > orig_dur) else ffmpeg.input(input_path).video
-            audio_input = ffmpeg.input(final_audio_with_bgm).audio
-            
-            out_opts = {'vcodec': 'copy', 'acodec': 'aac', 'b:a': '192k', 'ar': '44100'}
-            if target_dur and target_dur > 0:
-                out_opts['t'] = target_dur
-                
-            stream = ffmpeg.output(video_input, audio_input, output_path, **out_opts).overwrite_output()
+            out_opts = {'vcodec': 'copy', 'acodec': 'aac', 'b:a': '192k', 'ar': '44100', 'ac': 2}
+            if orig_dur and orig_dur > 0:
+                out_opts['t'] = orig_dur
+
+            video_in = ffmpeg.input(input_path).video
+            audio_in = ffmpeg.input(final_audio).audio
+            stream = ffmpeg.output(video_in, audio_in, output_path, **out_opts).overwrite_output()
             res = _run_ffmpeg_with_progress(stream, output_path, progress_callback)
-        except Exception as e:
-            print(f"FFmpeg Merge Error: {e}")
+        except Exception as e_merge:
+            print(f"FFmpeg merge error: {e_merge}")
             res = None
     else:
-        res = final_audio_with_bgm
-        
-    for sf in synced_segment_files:
+        shutil.copy(final_audio, output_path)
+        res = output_path
+
+    # Cleanup temp files
+    for sf in delayed_segment_files:
         cleanup_file(sf)
-    if bgm_path:
-        cleanup_file(bgm_path)
-    
+    if final_speech_track != final_audio:
+        cleanup_file(final_speech_track)
+    cleanup_file(final_audio)
+
     if res and os.path.exists(output_path) and os.path.getsize(output_path) > 1000:
         return output_path
-    elif res and isinstance(res, str) and os.path.exists(res):
-        return res
-        
+
     return "ERROR: Video dubbing process failed."
 
 def generate_neural_tts(text, lang='km', rate=None, output_path=None):
