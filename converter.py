@@ -525,10 +525,12 @@ def translate_nllb_ct2(text, src_lang="zh", tgt_lang="km"):
 
     return text
 
-def transcribe_with_whisper_timestamps(input_path, src_lang="auto"):
+def transcribe_with_whisper_timestamps(input_path, src_lang="auto", max_pause=0.35):
     """
-    Transcribes audio with Faster-Whisper to extract word & segment timestamps.
-    Returns list of dicts: [{'start': start_sec, 'end': end_sec, 'text': text}, ...]
+    Transcribes audio with Faster-Whisper using word_timestamps=True.
+    Intelligently splits speech into single-word or single-sentence units:
+    - If speaker pauses > max_pause (0.35s) between words -> creates separate word segment.
+    - If speaker talks continuously without pause -> groups words into a single sentence segment.
     """
     segments_list = []
     clean_src = None if src_lang == "auto" else src_lang[:2]
@@ -536,15 +538,61 @@ def transcribe_with_whisper_timestamps(input_path, src_lang="auto"):
     try:
         from faster_whisper import WhisperModel
         model = WhisperModel("small", device="cpu", compute_type="int8")
-        segments, info = model.transcribe(input_path, language=clean_src, beam_size=5)
+        segments, info = model.transcribe(input_path, language=clean_src, word_timestamps=True, beam_size=5)
+        
+        all_words = []
         for segment in segments:
-            text = segment.text.strip()
-            if text:
+            if hasattr(segment, 'words') and segment.words:
+                for w in segment.words:
+                    w_text = w.word.strip()
+                    if w_text:
+                        all_words.append({
+                            "start": round(w.start, 2),
+                            "end": round(w.end, 2),
+                            "word": w_text
+                        })
+            else:
+                text = segment.text.strip()
+                if text:
+                    segments_list.append({
+                        "start": round(segment.start, 2),
+                        "end": round(segment.end, 2),
+                        "text": text
+                    })
+
+        if all_words:
+            curr_words = []
+            curr_start = None
+            last_end = None
+
+            for w in all_words:
+                w_start = w["start"]
+                w_end = w["end"]
+                w_text = w["word"]
+
+                if last_end is not None and (w_start - last_end) > max_pause:
+                    # Pause detected! Flush current sentence segment
+                    if curr_words:
+                        segments_list.append({
+                            "start": curr_start,
+                            "end": last_end,
+                            "text": " ".join(curr_words)
+                        })
+                        curr_words = []
+                        curr_start = None
+
+                if curr_start is None:
+                    curr_start = w_start
+                curr_words.append(w_text)
+                last_end = w_end
+
+            if curr_words and curr_start is not None:
                 segments_list.append({
-                    "start": round(segment.start, 2),
-                    "end": round(segment.end, 2),
-                    "text": text
+                    "start": curr_start,
+                    "end": last_end,
+                    "text": " ".join(curr_words)
                 })
+
         if segments_list:
             return segments_list
     except Exception as e:
